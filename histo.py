@@ -1,14 +1,14 @@
 def main(hista):
     maxi = 0
-    lista = []
     
     def sideways(prev, lista, sizes={}):
-        # import ipdb; ipdb.set_trace()
         if prev-1 != -1:
             curr_height = hista[prev]
+            
             if hista[prev-1] >= hista[prev]:
                 lista[curr_height] = lista[curr_height] + 1
                 return sideways(prev-1, lista, sizes)
+            
             if hista[prev-1] < hista[prev]:
                 if not curr_height in lista.keys():
                     curr_height = max(lista.keys())
@@ -19,18 +19,18 @@ def main(hista):
                 listnew = {}
                 listnew[hista[prev-1]] = lista[curr_height] + 1
                 return sideways(prev-1, listnew, sizes)
+        
         else:
             area = max(sizes.keys())
             return area, sizes[area] 
             
-    print sideways(10, {5:0}) 
-    
     for pos in reversed(hista.keys()):
-        import ipdb; ipdb.set_trace()
         height = hista[pos]
+        
         if maxi < height:
             maxi = height 
         size = sideways(pos, {height:0})  
+        
         if maxi < size[0]:
             maxi = size[0] 
             
